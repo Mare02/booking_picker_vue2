@@ -1,9 +1,11 @@
-/*druge komponente stranice - primera radi jedna komponenta predstavlja stranicu*/ 
+
+<!--druge komponente stranice - primera radi ova komponenta predstavlja stranicu-->
 
 <template>
-  <div class=" w-full flex flex-col items-center h-screen mt-28 sm:mt-44">
+  <div class=" w-full flex flex-col items-center mt-28 sm:mt-44">
     <div class="flex flex-wrap items-center w-full justify-center gap-7 p-2 sm:p-4">
-      <div v-for="home in HomesData" :key="home.id" class="flex flex-col w-full sm:w-auto">
+      <div v-for="home in HomesData" :key="home.id" class="flex flex-col w-full sm:w-auto font-semibold 
+                                                            shadow-lg rounded-2xl sm:shadow-none">
         <div class="relative w-full h-96 sm:h-64 sm:w-64 xl:h-72 xl:w-72 shadow rounded-2xl overflow-hidden transition-all">
           <img class="h-full w-full object-cover" :src="home.image_url" alt="">
           <svg class="absolute top-4 right-4 invert" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="30" height="30" viewBox="0 0 256 256" xml:space="preserve">
@@ -14,11 +16,11 @@
             </g>
           </svg>
         </div>
-        <div class="flex flex-col items-start text-base">
+        <div class="flex flex-col items-start text-base p-4 sm:p-0">
           <span class="font-bold text-lg">{{home.location}}</span>
           <span>Added 3 weeks ago</span>
           <span>Jan 11-19</span>
-          <div class="flex items-center gap-1">
+          <div class="flex items-center gap-1 px-2 py-1 border-[0.13rem] border-gray-300 rounded-md">
             <span class="font-bold">${{home.price}}</span>
             <span>night</span>
           </div>

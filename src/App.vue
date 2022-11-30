@@ -7,7 +7,7 @@
 
 <script>
 import Navbar from './components/Navbar.vue'
-import Page_Template from './components/Page_Template.vue';
+import Page_Template from './components/__Page_Template.vue';
 
 export default {
   name: 'App',
