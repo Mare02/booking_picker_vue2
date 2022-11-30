@@ -1,24 +1,24 @@
 <template>
   <div class="flex flex-col items-center"> 
     <div class="flex items-center justify-between sm:justify-evenly sm:w-fit bg-white border-[0.1rem] 
-               border-gray-300 rounded-full gap-3 shadow-md hover:shadow-lg cursor-pointer mb-4 overflow-hidden">
+               border-gray-300 rounded-full gap-3 shadow-lg cursor-pointer mb-4 overflow-hidden">
       <div class="items-center hidden sm:flex">
-        <div class="flex flex-col hover:bg-gray-200 p-2 pl-8 hover:rounded-full">
+        <div class="flex flex-col hover:bg-gray-200 p-2 pl-8 rounded-3xl transition-all" id="1">
           <span class="font-semibold">Where</span>
           <input type="text" placeholder="Search destinations" class=" focus:outline-none focus:border-none bg-transparent">
         </div>
           <p class="w-[0.12rem] h-6 bg-gray-300"></p>
-        <div class="flex flex-col hover:bg-gray-200 p-2 px-6 hover:rounded-3xl">
+        <div class="flex flex-col hover:bg-gray-200 p-2 px-6 rounded-3xl transition-all" id="2">
           <span class="font-semibold">Check in</span>
           <span class=" font-light">Add dates</span>
         </div>
           <p class="w-[0.12rem] h-6 bg-gray-300"></p>
-        <div class="flex flex-col hover:bg-gray-200 p-2 px-6 hover:rounded-3xl">
+        <div class="flex flex-col hover:bg-gray-200 p-2 px-6 rounded-3xl transition-all" id="3">
           <span class="font-semibold">Check out</span>
           <span class=" font-light">Add dates</span>
         </div>
           <p class="w-[0.12rem] h-6 bg-gray-300"></p>
-        <div class="flex items-center hover:bg-gray-200 p-2 pl-6 hover:rounded-3xl">
+        <div class="flex items-center hover:bg-gray-200 p-2 pl-6 rounded-3xl transition-all" id="4">
           <div class="flex flex-col mr-4">
             <span class="font-semibold">Who?</span>
             <span class=" font-light">Add guests</span>
@@ -39,6 +39,11 @@
 export default {
   mounted(){
     
+  },
+  data(){
+    return{
+      selected_picker: 1,
+    }
   }
 }
 </script>

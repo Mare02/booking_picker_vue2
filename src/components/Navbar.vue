@@ -27,7 +27,7 @@
           </div>
         </div>
       </div>
-      <Search_Controler v-if="showMainComponent"/>
+      <Search_Controller v-if="showMainComponent"/>
     </div>
     <div class="w-full top-0 absolute h-screen bg-black/40 z-[-1]" v-if="showMainComponent" id="dim"></div>
   </div>
@@ -35,13 +35,13 @@
 
 <script>
 import Search_Toggler from './Search-Components/Search_Toggler.vue' 
-import Search_Controler from '../components/Search-Components/Search_Controller.vue';
+import Search_Controller from '../components/Search-Components/Search_Controller.vue';
 
 const x = window.matchMedia("(max-width: 680px)")
 
 export default{
   components:{
-    Search_Toggler, Search_Controler
+    Search_Toggler, Search_Controller
   },
   computed:{
 
