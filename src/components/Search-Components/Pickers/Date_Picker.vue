@@ -1,7 +1,9 @@
 <template>
-  <div>
-    <DatePicker range v-model="date_range" @change="emitDateInput()"/>
-    {{selected_date}}
+  <div class="flex flex-col w-full items-center">
+    <div class="flex items-center">
+      
+    </div>
+    <DatePicker range v-model="date_range" open @change="emitDateInput()"/>
   </div>
 </template>
 
@@ -35,7 +37,7 @@ export default {
   },
   methods:{
     emitDateInput(){
-      console.log('input date');
+      console.log(this.selected_date);
       this.$emit('dateInput', this.selected_date)
     }
   }
