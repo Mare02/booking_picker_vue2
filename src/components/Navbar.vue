@@ -1,6 +1,6 @@
 <template>
-  <div class="w-full flex flex-col fixed top-0 z-10 transition-all" :class="{'dim-sibling': false}">
-    <div class="hidden sm:flex px-12 py-4 md:px-24  bg-gray-200 border-b-[0.1rem] border-gray-400 
+  <div class="w-full flex flex-col fixed top-0 z-10" :class="{'dim-sibling': false}">
+    <div class="hidden sm:flex px-12 py-4 md:px-24 bg-gray-200 border-b-[0.1rem] border-gray-400 
                 items-center justify-between">
       <div>
         <span class="text-[1.1rem] md:text-xl font-semibold">Introducing our 2022 Winter Release</span>
@@ -17,9 +17,9 @@
           </div>
           <span class="font-semibold text-lg hidden md:block">Brand Name</span>
         </div>
-
-        <Search_Toggler v-if="!showMainComponent" @emitShowMain="showMain()"/>
-
+        <transition name="fade-rev">
+          <Search_Toggler v-if="!showMainComponent" @emitShowMain="showMain"/>
+        </transition>
         <div class="items-center gap-2 hidden sm:flex">
           <a href="">Language</a>
           <div class="border-[0.1rem] border-gray-400 rounded-2xl p-2">
@@ -27,7 +27,9 @@
           </div>
         </div>
       </div>
-      <Search_Controller v-if="showMainComponent"/>
+      <transition name="fade">
+        <Search_Controller v-if="showMainComponent" :picker_name="selectedPickerName"/>
+      </transition>
     </div>
     <div class="w-full top-0 absolute h-screen bg-black/40 z-[-1]" v-if="showMainComponent" id="dim"></div>
   </div>
@@ -60,16 +62,44 @@ export default{
   },
   data(){
     return{
-      showMainComponent: false
+      showMainComponent: false,
+      selectedPickerName: null
     }
   },
   methods:{
-    showMain(){
+    showMain(param){
+      this.selectedPickerName = param
       this.showMainComponent = !this.showMainComponent
-    }
+    },
   }
 }
 </script>
 
 <style>
+.fade-enter-active, .fade-leave-active {
+  transition: all .2s ease-in;
+  max-height: 1200px;
+  overflow: hidden;
+}
+.fade-enter, .fade-leave-to{
+  transform: translateY(-3rem);
+  opacity: 0;
+  transition: all .2s ease-out;
+  scale: 0.8;
+  max-height: 0;
+}
+
+.fade-rev-enter-active, .fade-rev-leave-active {
+  transition: all .2s ease-in;
+  opacity: 1;
+  max-height: 1200px;
+  overflow: hidden;
+}
+.fade-rev-enter, .fade-rev-leave-to{
+  opacity: 0;
+  transition: all .2s ease-out;
+  transform: translateY(3rem);
+  scale: 1.5;
+  max-height: 0;
+}
 </style>

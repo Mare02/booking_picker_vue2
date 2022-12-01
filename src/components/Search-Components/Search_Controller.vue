@@ -61,15 +61,17 @@ import location_picker from './Pickers/Location_Picker.vue'
 import guests_picker from './Pickers/Guests_Picker.vue'
 
 export default {
+  props:['picker_name'],
   components:{
     guests_picker, location_picker, date_picker
   },
   mounted(){
-    
+    console.log(this.picker_name);
+    this.selected_picker = this.picker_name
   },
   data(){
     return{
-      selected_picker: 'guests_picker',
+      selected_picker: 'location_picker',
       location_query: '',
 
       selected_date: null
@@ -77,7 +79,6 @@ export default {
   },
   methods:{
     getSelectedDate(date){
-      console.log('emit iz component');
       this.selected_date = date
     },
   }
