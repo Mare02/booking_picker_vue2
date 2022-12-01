@@ -1,9 +1,10 @@
 <template>
   <div class="flex flex-col w-full items-center">
-    <div class="flex items-center">
-      
+    <div class="flex items-center gap-3 p-1 bg-gray-300 rounded-full font-semibold mb-4">
+      <span :class="{'bg-white': selected_type == 1}" class="rounded-full transition-all p-2 cursor-pointer" @click="selectType" id="1">Choose dates</span>
+      <span :class="{'bg-white': selected_type == 2}" class="rounded-full transition-all p-2 cursor-pointer" @click="selectType" id="2">I'm flexible</span>
     </div>
-    <DatePicker range v-model="date_range" open @change="emitDateInput()"/>
+    <DatePicker range v-model="date_range" open @change="emitDateInput()" v-if="selected_type == 1"/>
   </div>
 </template>
 
@@ -32,13 +33,18 @@ export default {
     return{
       check_in: null,
       check_out: null,
-      date_range: []
+      date_range: [],
+
+      selected_type: 1
     }
   },
   methods:{
     emitDateInput(){
       console.log(this.selected_date);
       this.$emit('dateInput', this.selected_date)
+    },
+    selectType(e){
+      this.selected_type = e.target.id
     }
   }
 }

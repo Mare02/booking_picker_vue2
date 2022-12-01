@@ -8,7 +8,7 @@
       <div class="flex items-center gap-3">
         <button @click="opt.count--" :class="{'disabled-btn': opt.count === 0}" class="border-2 border-gray-400 rounded-full w-8 h-8 hover:bg-gray-200 flex items-center justify-center">-</button>
         {{opt.count}}
-        <button @click="opt.count++" class="border-2 border-gray-400 rounded-full w-8 h-8 hover:bg-gray-200">+</button>
+        <button @click="opt.count++" :class="{'disabled-btn': opt.count === 5}" class="border-2 border-gray-400 rounded-full w-8 h-8 hover:bg-gray-200">+</button>
       </div>
     </div>
   </div>
