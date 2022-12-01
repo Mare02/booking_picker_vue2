@@ -16,6 +16,7 @@
 
 <script>
 export default {
+  name:'guests-picker',
   data(){
     return{
       options:[

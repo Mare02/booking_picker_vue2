@@ -4,8 +4,8 @@
                border-gray-300 rounded-full gap-3 shadow-lg cursor-pointer mb-4">
       <div class="items-center hidden sm:flex">
 
-        <div class="flex flex-col hover:bg-gray-300 p-2 pl-8 rounded-full transition-all relative" id="1" @click="logClick"
-              :class="{'bg-white shadow-md': selected_picker == 1}">
+        <div class="flex flex-col hover:bg-gray-300 p-2 pl-8 rounded-full transition-all relative" id="1" @click="selected_picker = 'location_picker'"
+              :class="{'bg-white shadow-md': selected_picker == 'location_picker'}">
           <span class="font-semibold pointer-events-none">Where</span>
           <input type="text" placeholder="Search destinations" v-model="location_query"
                   class=" focus:outline-none focus:border-none bg-transparent">
@@ -13,8 +13,8 @@
 
           <p class="w-[0.12rem] h-6 bg-gray-300"></p>
 
-        <div class="flex flex-col hover:bg-gray-300 p-2 px-6 rounded-full transition-all relative" id="2" @click="logClick"
-              :class="{'bg-white shadow-md': selected_picker == 2}">
+        <div class="flex flex-col hover:bg-gray-300 p-2 px-6 rounded-l-full transition-all relative" id="2" @click="selected_picker = 'date_picker'"
+              :class="{'bg-white shadow-md': selected_picker == 'date_picker'}">
           <span class="font-semibold pointer-events-none">Check in</span>
           <span class=" font-light pointer-events-none">
             {{selected_date ? selected_date.c_in_month + " " +  selected_date.c_in_day : 'Add dates'}}
@@ -23,8 +23,8 @@
 
           <p class="w-[0.12rem] h-6 bg-gray-300"></p>
 
-        <div class="flex flex-col hover:bg-gray-300 p-2 px-6 rounded-full transition-all relative" id="3" @click="logClick"
-              :class="{'bg-white shadow-md': selected_picker == 3}">
+        <div class="flex flex-col hover:bg-gray-300 p-2 px-6 rounded-r-full transition-all relative" id="3" @click="selected_picker = 'date_picker'"
+              :class="{'bg-white shadow-md': selected_picker == 'date_picker'}">
           <span class="font-semibold pointer-events-none">Check out</span>
           <span class=" font-light pointer-events-none">
             {{selected_date ? selected_date.c_out_month + " " +  selected_date.c_out_day : 'Add dates'}}
@@ -33,8 +33,8 @@
 
           <p class="w-[0.12rem] h-6 bg-gray-300"></p>
 
-        <div class="flex items-center hover:bg-gray-300 p-2 pl-6 rounded-full transition-all relative" id="4" @click="logClick"
-             :class="{'bg-white shadow-md': selected_picker == 4}">
+        <div class="flex items-center hover:bg-gray-300 p-2 pl-6 rounded-full transition-all relative" id="4" @click="selected_picker = 'guests_picker'"
+             :class="{'bg-white shadow-md': selected_picker == 'guests_picker'}">
           <div class="flex flex-col mr-4 pointer-events-none">
             <span class="font-semibold">Who?</span>
             <span class=" font-light">Add guests</span>
@@ -46,42 +46,40 @@
       </div>
     </div> 
     <div class="p-4 bg-white rounded-2xl shadow-lg absolute top-20">
-      <Guests_Picker v-show="selected_picker == 4"/>
-      <Date_Picker @dateInput="getSelectedDate" v-if="selected_picker == 2 || selected_picker == 3"/>
-      <Location_Picker v-if="(selected_picker == 1)"/>
+      <keep-alive>
+        <guests_picker v-if="selected_picker == 'guests_picker'"/>
+        <date_picker @dateInput="getSelectedDate" v-if="selected_picker == 'date_picker'" @emitDateInput="getSelectedDate"/>
+        <location_picker v-if="selected_picker == 'location_picker'"/>
+      </keep-alive>
     </div>
   </div>
-  
 </template>
 
 <script>
-
-import Date_Picker from './Pickers/Date_Picker.vue'
-import Location_Picker from './Pickers/Location_Picker.vue'
-import Guests_Picker from './Pickers/Guests_Picker.vue'
+import date_picker from './Pickers/Date_Picker.vue'
+import location_picker from './Pickers/Location_Picker.vue'
+import guests_picker from './Pickers/Guests_Picker.vue'
 
 export default {
   components:{
-    Guests_Picker, Location_Picker, Date_Picker
+    guests_picker, location_picker, date_picker
   },
   mounted(){
     
   },
   data(){
     return{
-      selected_picker: 1,
+      selected_picker: 'guests_picker',
       location_query: '',
 
       selected_date: null
     }
   },
   methods:{
-    logClick(e){
-      this.selected_picker = e.target.id
-    },
     getSelectedDate(date){
+      console.log('emit iz component');
       this.selected_date = date
-    }
+    },
   }
 }
 </script>

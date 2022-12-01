@@ -1,27 +1,28 @@
 <template>
-  <div class="flex flex-col w-full items-center">
-    <div class="flex items-center gap-3 p-1 bg-gray-300 rounded-full font-semibold mb-4">
-      <span :class="{'bg-white': selected_type == 1}" class="rounded-full transition-all p-2 cursor-pointer" @click="selectType" id="1">Choose dates</span>
-      <span :class="{'bg-white': selected_type == 2}" class="rounded-full transition-all p-2 cursor-pointer" @click="selectType" id="2">I'm flexible</span>
+  <div class="flex flex-col items-center">
+    <div class="flex items-center gap-1 p-1 bg-gray-300 rounded-full w-1/2 font-semibold mb-4">
+      <span :class="{'bg-white': selected_type == 1}" class="rounded-full text-center transition-all px-4 py-2 cursor-pointer w-1/2" @click="selectType" id="1">Choose dates</span>
+      <span :class="{'bg-white': selected_type == 2}" class="rounded-full text-center transition-all px-4 py-2 cursor-pointer w-1/2" @click="selectType" id="2">I'm flexible</span>
     </div>
-    <DatePicker range v-model="date_range" open @change="emitDateInput()" v-if="selected_type == 1"/>
+    <date-range-picker v-model="date_range" :autoApply="true" :opens="'inline'" :ranges="false" @update="emitDateInput()"/>
   </div>
 </template>
 
 <script>
-import DatePicker from 'vue2-datepicker';
-import 'vue2-datepicker/index.css';
+import DateRangePicker from 'vue2-daterange-picker'
+import 'vue2-daterange-picker/dist/vue2-daterange-picker.css'
 
 export default {
+  name:'date-picker',
   components:{
-    DatePicker
+    DateRangePicker
   },
   computed:{
     selected_date(){
-      let check_in_month = new Date(this.date_range[0]).toLocaleString('default', { month: 'long' }).substring(0, 3);
-      let check_in_day = new Date(this.date_range[0]).getDate()
-      let check_out_month = new Date(this.date_range[1]).toLocaleString('default', { month: 'long' }).substring(0, 3);
-      let check_out_day = new Date(this.date_range[1]).getDate()
+      let check_in_month = new Date(this.date_range.startDate).toLocaleString('default', { month: 'long' }).substring(0, 3);
+      let check_in_day = new Date(this.date_range.startDate).getDate()
+      let check_out_month = new Date(this.date_range.endDate).toLocaleString('default', { month: 'long' }).substring(0, 3);
+      let check_out_day = new Date(this.date_range.endDate).getDate()
 
       return {"c_in_month": check_in_month, 
               "c_in_day": check_in_day, 
@@ -33,14 +34,15 @@ export default {
     return{
       check_in: null,
       check_out: null,
-      date_range: [],
+      date_range: {},
 
       selected_type: 1
     }
   },
   methods:{
     emitDateInput(){
-      console.log(this.selected_date);
+      console.log('emit');
+      console.log(Date(this.date_range.startDate).toLocaleString('default', { month: 'long' }).substring(0, 3));
       this.$emit('dateInput', this.selected_date)
     },
     selectType(e){
