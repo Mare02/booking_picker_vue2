@@ -17,8 +17,27 @@
 <script>
 export default {
   name:'guests-picker',
+  computed:{
+    
+  },
+  watch:{
+    
+  },
+  updated(){
+    console.log('updated');
+
+    for(let opt of this.options){
+      console.log(opt.count, opt.name);
+      let obj = {
+        name: opt.name,
+        count: opt.count
+      }
+      this.selectedOptArr.push(obj)
+    }
+  },
   data(){
     return{
+      selectedOptArr: [],
       options:[
         {
           id: 1,
@@ -45,6 +64,9 @@ export default {
         },
       ]
     }
+  },
+  methods:{
+
   }
 }
 </script>

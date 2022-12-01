@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full sm:w-auto">
+  <div class="w-full sm:w-auto" @click="emitShowMain('guests_picker')">
     <div class="flex items-center justify-between sm:justify-evenly w-full sm:w-auto bg-white border-[0.1rem] 
               border-gray-300 rounded-full shadow-md hover:shadow-lg cursor-pointer" 
       v-if="!showMainComponent">
@@ -12,7 +12,7 @@
           <p class="w-[0.12rem] h-6 bg-gray-300"></p>
         <span href="" class="py-3 pl-3" @click="emitShowMain('guests_picker')">Add guests</span>
       </div>
-      <div class="flex items-center gap-4">
+      <div class="flex items-center gap-4" >
 
         <!--Ikonica se koristi za obe situacije-->
         <div class="p-2 sm:mx-2 sm:bg-orange-700 rounded-full">

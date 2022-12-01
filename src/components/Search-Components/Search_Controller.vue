@@ -1,8 +1,8 @@
 <template>
   <div class="flex flex-col items-center relative"> 
-    <div class="flex items-center justify-between sm:justify-evenly sm:w-fit bg-gray-200 border-[0.1rem] 
-               border-gray-300 rounded-full gap-3 shadow-lg cursor-pointer mb-4">
-      <div class="items-center hidden sm:flex">
+    <div class="flex items-center justify-center sm:justify-evenly w-full sm:w-fit bg-gray-200 border-[0.1rem] 
+               border-gray-300 rounded-2xl sm:rounded-full p-2 sm:p-0 gap-3 shadow-lg cursor-pointer mb-4">
+      <div class="items-center flex flex-col sm:flex-row">
 
         <div class="flex flex-col hover:bg-gray-300 p-2 pl-8 rounded-full transition-all relative" id="1" @click="selected_picker = 'location_picker'"
               :class="{'bg-white shadow-md': selected_picker == 'location_picker'}">
@@ -11,27 +11,45 @@
                   class=" focus:outline-none focus:border-none bg-transparent">
         </div>
 
-          <p class="w-[0.12rem] h-6 bg-gray-300"></p>
+          <p class="sm:w-[0.12rem] h-6 bg-gray-300"></p>
 
-        <div class="flex flex-col hover:bg-gray-300 p-2 px-6 rounded-l-full transition-all relative" id="2" @click="selected_picker = 'date_picker'"
+        <div class="flex items-center hover:bg-gray-300 p-2 px-6 rounded-full transition-all relative" id="2" @click="selected_picker = 'date_picker'"
               :class="{'bg-white shadow-md': selected_picker == 'date_picker'}">
-          <span class="font-semibold pointer-events-none">Check in</span>
-          <span class=" font-light pointer-events-none">
-            {{selected_date ? selected_date.c_in_month + " " +  selected_date.c_in_day : 'Add dates'}}
-          </span>
+          <div v-if="selected_flex_type == 2" class="flex flex-col w-44">
+            <span class="font-semibold pointer-events-none">When</span>
+            <div class="flex items-center">
+              <span class="font-light pointer-events-none">
+                <span v-if="!selected_months || monthsLength === 0">Any</span>
+                {{selected_flex_opt}}
+                  <span v-if="selected_months && monthsLength > 0">in</span>
+                </span>
+              <div class="flex items-center ml-1 w-20" v-if="selected_months && monthsLength > 0">
+                <span class="min-w-max" v-for="mon of selected_months.slice(0, 3)" :key="mon">
+                  {{mon.substring(0, 3)}}
+                  <span class="mr-1 -ml-1" v-if="monthsLength > 1">,</span>
+                </span>
+                <span v-if="monthsLength > 3">...</span>
+              </div>
+            </div>
+            
+          </div>
+          <div v-else class="flex items-center justify-center gap-8 w-44">
+            <div class="flex flex-col">
+              <span class="font-semibold pointer-events-none">Check in</span>
+              <span class="font-light pointer-events-none">
+                {{selected_date ? selected_date.c_in_month + " " +  selected_date.c_in_day : 'Add dates'}}
+              </span>
+            </div>
+            <div class="flex flex-col">
+              <span class="font-semibold pointer-events-none">Check out</span>
+              <span class=" font-light pointer-events-none">
+                {{selected_date ? selected_date.c_out_month + " " +  selected_date.c_out_day : 'Add dates'}}
+              </span>
+            </div>
+          </div>
         </div>
 
-          <p class="w-[0.12rem] h-6 bg-gray-300"></p>
-
-        <div class="flex flex-col hover:bg-gray-300 p-2 px-6 rounded-r-full transition-all relative" id="3" @click="selected_picker = 'date_picker'"
-              :class="{'bg-white shadow-md': selected_picker == 'date_picker'}">
-          <span class="font-semibold pointer-events-none">Check out</span>
-          <span class=" font-light pointer-events-none">
-            {{selected_date ? selected_date.c_out_month + " " +  selected_date.c_out_day : 'Add dates'}}
-          </span>
-        </div>
-
-          <p class="w-[0.12rem] h-6 bg-gray-300"></p>
+          <p class="sm:w-[0.12rem] h-6 bg-gray-300"></p>
 
         <div class="flex items-center hover:bg-gray-300 p-2 pl-6 rounded-full transition-all relative" id="4" @click="selected_picker = 'guests_picker'"
              :class="{'bg-white shadow-md': selected_picker == 'guests_picker'}">
@@ -45,11 +63,16 @@
         </div>
       </div>
     </div> 
-    <div class="p-4 bg-white rounded-2xl shadow-lg absolute top-20">
+    <div class="p-4 bg-white rounded-2xl shadow-lg absolute top-72 sm:top-20 w-full sm:w-auto">
       <keep-alive>
         <guests_picker v-if="selected_picker == 'guests_picker'"/>
-        <date_picker @dateInput="getSelectedDate" v-if="selected_picker == 'date_picker'" @emitDateInput="getSelectedDate"/>
-        <location_picker v-if="selected_picker == 'location_picker'"/>
+        <date_picker @dateInput="getSelectedDate" v-if="selected_picker == 'date_picker'" @emitDateInput="getSelectedDate"
+                    @selected_months="getSelectedMonths"
+                    @flexible="getFlexibleType"
+                    @flexible_opt="getFlexibleOpt"/>
+        <location_picker v-if="selected_picker == 'location_picker'"
+                        :search_query="location_query"
+                        @regionSelect="getSelectedRegion"/>
       </keep-alive>
     </div>
   </div>
@@ -65,6 +88,11 @@ export default {
   components:{
     guests_picker, location_picker, date_picker
   },
+  computed:{
+    monthsLength(){
+      return this.selected_months.length
+    }
+  },
   mounted(){
     console.log(this.picker_name);
     this.selected_picker = this.picker_name
@@ -74,13 +102,30 @@ export default {
       selected_picker: 'location_picker',
       location_query: '',
 
-      selected_date: null
+      selected_date: null,
+      selected_months: null,
+      selected_flex_type: null,
+      selected_flex_opt: null
     }
   },
   methods:{
     getSelectedDate(date){
       this.selected_date = date
     },
+    getSelectedMonths(months){
+      this.selected_months = months
+      console.log(this.selected_months);
+    },
+    getFlexibleType(type){
+      this.selected_flex_type = type
+    },
+    getFlexibleOpt(opt){
+      this.selected_flex_opt = opt
+    },
+    getSelectedRegion(region){
+      this.location_query = region
+      this.selected_picker = 'date_picker'
+    }
   }
 }
 </script>
