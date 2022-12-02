@@ -77,27 +77,27 @@ export default{
 
 <style>
 .fade-enter-active, .fade-leave-active {
-  transition: all .2s ease-in;
+  transition: all .2s ease;
   max-height: 1200px;
   overflow: hidden;
 }
 .fade-enter, .fade-leave-to{
   transform: translateY(-3rem);
   opacity: 0;
-  transition: all .2s ease-out;
+  transition: all .2s ease;
   scale: 0.8;
   max-height: 0;
 }
 
 .fade-rev-enter-active, .fade-rev-leave-active {
-  transition: all .2s ease-in;
+  transition: all .2s ease;
   opacity: 1;
   max-height: 1200px;
   overflow: hidden;
 }
 .fade-rev-enter, .fade-rev-leave-to{
   opacity: 0;
-  transition: all .2s ease-out;
+  transition: all .2s ease;
   transform: translateY(3rem);
   scale: 1.5;
   max-height: 0;
