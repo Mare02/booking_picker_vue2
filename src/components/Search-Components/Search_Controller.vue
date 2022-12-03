@@ -53,8 +53,8 @@
       <p class="sm:w-[0.12rem] h-6 bg-gray-300"></p>
 
       <!--Date button-->
-      <div class="flex items-center justify-center transition-all w-64 " id="2">
-        <section class="relative ">
+      <div class="flex items-center justify-center transition-all w-full sm:w-64 " id="2">
+        <section class="relative w-full hidden sm:block">
           <button v-if="selected_flex_type == 2" class="flex flex-col justify-center px-6 h-16 w-full rounded-full hover:bg-gray-300"
                 @click="selected_picker = 'date_picker'"
                 :class="{'bg-white sm:hover:bg-white shadow-center': selected_picker == 'date_picker' || selected_picker == 'date_picker_out'}">
@@ -96,6 +96,15 @@
               </span>
             </button>
           </div>
+        </section>
+
+        <section class="sm:hidden w-full rounded-2xl bg-white px-6 py-4">
+          
+          <div class="flex item-center justify-between">
+            <span>When</span>
+            <span class="font-semibold">Add dates</span>
+          </div>
+
         </section>
         
         <div class="p-8 bg-white rounded-3xl shadow-lg absolute top-72 sm:top-20 w-full sm:w-full left-0"
