@@ -28,6 +28,7 @@ body:has(#controller){
     gap: 3rem;
     width: 100%;
     margin-bottom: 2rem;
+    margin-top: 2rem;
   }
   .vue-daterange-picker .calendars-container .table-condensed{
     scale: 1.3;
@@ -36,16 +37,15 @@ body:has(#controller){
 
 @media (max-width: 720px){
   .vue-daterange-picker .calendars-container{
-    overflow-y: scroll;
-    justify-content: center;
-  }
-  .vue-daterange-picker .calendars-container .table-condensed{
-
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
   }
 }
 
 .vue-daterange-picker .reportrange-text{
-  visibility: hidden;
+  display: none;
 }
 .vue-daterange-picker .daterangepicker{
   border: none;

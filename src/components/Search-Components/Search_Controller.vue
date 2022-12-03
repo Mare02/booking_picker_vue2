@@ -1,9 +1,9 @@
 <template>
   <div class="flex items-center justify-center sm:justify-evenly w-auto mb-4">
-    <div class="items-center flex flex-col sm:flex-row w-full sm:w-auto h-screen sm:h-auto absolute top-0 bg-gray-200 
+    <div class="items-center flex flex-col max-sm:gap-3 sm:flex-row w-full sm:w-auto h-screen sm:h-auto absolute top-0 bg-gray-200 
                 sm:rounded-full shadow-lg cursor-pointer sm:relative max-sm:px-3" id="controller">
 
-      <div class="py-4 w-full flex sm:hidden justify-center gap-8 text-lg font-semibold">
+      <div class="py-3 w-full flex sm:hidden justify-center gap-8 text-lg font-semibold">
         <span>Stays</span>
         <span>Experiences</span>
       </div>
@@ -50,11 +50,11 @@
         </button>
       </div>
 
-      <p class="sm:w-[0.12rem] h-6 bg-gray-300"></p>
+      <p class="max-sm:hidden w-[0.12rem] h-6 bg-gray-300"></p>
 
       <!--Date button-->
-      <div class="flex items-center justify-center transition-all w-full sm:w-64 " id="2">
-        <section class="relative w-full hidden sm:block">
+      <div class="flex max-sm:flex-col items-center justify-center transition-all w-full sm:w-64" id="2">
+        <section class="hidden sm:block w-full">
           <button v-if="selected_flex_type == 2" class="flex flex-col justify-center px-6 h-16 w-full rounded-full hover:bg-gray-300"
                 @click="selected_picker = 'date_picker'"
                 :class="{'bg-white sm:hover:bg-white shadow-center': selected_picker == 'date_picker' || selected_picker == 'date_picker_out'}">
@@ -98,17 +98,18 @@
           </div>
         </section>
 
-        <section class="sm:hidden w-full rounded-2xl bg-white px-6 py-4">
-          
-          <div class="flex item-center justify-between">
+        <section class="sm:hidden w-full" @click="selected_picker = 'date_picker'">
+          <button v-if="selected_picker != 'date_picker' " class="flex item-center justify-between w-full rounded-2xl bg-white px-6 py-4 shadow-md">
             <span>When</span>
             <span class="font-semibold">Add dates</span>
-          </div>
+          </button>
 
+          
         </section>
-        
-        <div class="p-8 bg-white rounded-3xl shadow-lg absolute top-72 sm:top-20 w-full sm:w-full left-0"
+        <div class="sm:p-8 bg-white rounded-2xl sm:rounded-3xl max-sm:h-full sm:shadow-lg sm:absolute sm:top-20 w-full sm:left-0 
+                    max-sm:flex max-sm:flex-col overflow-x-hidden"
           v-show="selected_picker == 'date_picker' || selected_picker == 'date_picker_out'">
+          <span class="sm:hidden font-semibold text-2xl pointer-events-none mb-3 ml-6 mt-4 mb-5" >When's your trip?</span>
           <keep-alive>
             <date_picker @dateInput="getSelectedDate" 
                           @emitDateInput="getSelectedDate"
@@ -119,7 +120,7 @@
         </div>
       </div>
 
-      <p class="sm:w-[0.12rem] h-6 bg-gray-300"></p>
+      <p class="max-sm:hidden w-[0.12rem] h-6 bg-gray-300"></p>
 
       <!--Guests button-->
       <div class="relative">
