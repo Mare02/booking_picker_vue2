@@ -28,7 +28,7 @@
         </div>
       </div>
       <transition name="fade">
-        <Search_Controller v-if="showMainComponent" :picker_name="selectedPickerName"/>
+        <Search_Controller v-if="showMainComponent" :picker_name="selectedPickerName" @search="showMainComponent = false"/>
       </transition>
     </div>
     <div class="w-full top-0 absolute h-screen bg-black/40 z-[-1]" v-if="showMainComponent" id="dim"></div>

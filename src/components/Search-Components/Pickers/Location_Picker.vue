@@ -1,20 +1,23 @@
 <template>
   <div>
     <div class="flex flex-col" v-if="queryLength > 0">
-      <div v-for="loc in locations_arr" :key="locations_arr.indexOf(loc)" class="flex items-center gap-2 hover:bg-gray-200 rounded-full p-4 cursor-pointer min-w-[20rem]">
-        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><g data-name="Layer 2"><path d="M16,30a1,1,0,0,0,.62-.22C17,29.44,27,21.38,27,13A11,11,0,0,0,5,13c0,8.38,10,16.44,10.38,16.78A1,1,0,0,0,16,30ZM7,13a9,9,0,0,1,18,0c0,6.3-6.87,12.81-9,14.69C13.87,25.81,7,19.3,7,13Z"/><path d="M21,13a5,5,0,1,0-5,5A5,5,0,0,0,21,13Zm-8,0a3,3,0,1,1,3,3A3,3,0,0,1,13,13Z"/></g></svg>
-        <span>{{loc.address.formattedAddress}}</span>
+      <div v-for="loc in locations_arr" :key="locations_arr.indexOf(loc)" class="flex items-center gap-4 hover:bg-gray-200/50 px-4 py-2 cursor-pointer min-w-[20rem]">
+        <div class="p-3 bg-gray-200 rounded-xl">
+          <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><g data-name="Layer 2"><path d="M16,30a1,1,0,0,0,.62-.22C17,29.44,27,21.38,27,13A11,11,0,0,0,5,13c0,8.38,10,16.44,10.38,16.78A1,1,0,0,0,16,30ZM7,13a9,9,0,0,1,18,0c0,6.3-6.87,12.81-9,14.69C13.87,25.81,7,19.3,7,13Z"/><path d="M21,13a5,5,0,1,0-5,5A5,5,0,0,0,21,13Zm-8,0a3,3,0,1,1,3,3A3,3,0,0,1,13,13Z"/></g></svg>
+        </div>
+        <span class="text-lg">{{loc.address.formattedAddress}}</span>
       </div>
     </div>
 
-    <div class="flex flex-col w-full sm:w-[37rem]" v-if="locationsLength === 0 || queryLength === 0">
-      <span class="font-bold text-lg mb-6">Search by region</span>
-      <div class="flex flex-wrap gap-4 justify-center items-center">
-        <div v-for="mapOpt in regionsArr" :key="mapOpt.id" class="flex flex-col">
-          <img class=" w-32 h-32 sm:w-40 sm:h-40 object-cover border-[0.13rem] border-gray-300 rounded-2xl hover:border-gray-400 cursor-pointer" :src="mapOpt.img_url" alt=""
+    <div class="flex flex-col w-full mb-4" v-if="locationsLength === 0 || queryLength === 0">
+      <span class="font-bold text-md mb-6 max-sm:hidden">Search by region</span>
+      <div class="flex sm:flex-wrap gap-4 sm:justify-center items-start w-[28rem]">
+        <div v-for="mapOpt in regionsArr" :key="mapOpt.id" class="flex flex-col items-start">
+          <img class=" min-w-[8rem] min-h-[8rem] sm:w-32 sm:h-32 object-cover border-[0.13rem] border-gray-300 rounded-2xl hover:border-gray-400 cursor-pointer" 
+                :src="mapOpt.img_url" alt=""
                 :class="{'border-[0.2rem] border-gray-500': selected_region === mapOpt.name}"
                 @click="selectRegion(mapOpt.name)">
-          <span class="font-semibold">{{mapOpt.name}}</span>
+          <span class="mb-2">{{mapOpt.name}}</span>
         </div>
       </div>
     </div>
@@ -107,7 +110,6 @@ export default {
     selectRegion(region){
       this.selected_region = region
       this.$emit('regionSelect', region)
-      this.showLocDropdown = false
     }
   }
 }

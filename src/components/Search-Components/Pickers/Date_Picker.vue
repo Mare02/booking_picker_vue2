@@ -1,10 +1,14 @@
 <template>
-  <div class="flex flex-col items-center">
-    <div class="flex items-center gap-1 p-1 bg-gray-300 rounded-full w-72 font-semibold mb-4">
-      <span :class="{'bg-white': selected_type == 1}" class="rounded-full text-center transition-all px-4 py-2 cursor-pointer w-1/2 hover:bg-gray-200/90" @click="selectType" id="1">Choose dates</span>
-      <span :class="{'bg-white': selected_type == 2}" class="rounded-full text-center transition-all px-4 py-2 cursor-pointer w-1/2 hover:bg-gray-200/90" @click="selectType" id="2">I'm flexible</span>
+  <div class="flex flex-col items-center max-h-fit">
+    <div class="flex items-center gap-1 p-1 bg-gray-300 rounded-full w-80 font-medium mb-4">
+      <span :class="{'bg-white': selected_type == 1}" class="rounded-full text-center transition-all px-6 py-[0.3rem] cursor-pointer w-1/2 hover:bg-gray-200/90" @click="selectType" id="1">Choose dates</span>
+      <span :class="{'bg-white': selected_type == 2}" class="rounded-full text-center transition-all px-6 py-[0.3rem] cursor-pointer w-1/2 hover:bg-gray-200/90" @click="selectType" id="2">I'm flexible</span>
     </div>
-    <date-range-picker v-if="selected_type == 1" v-model="date_range" :autoApply="true" :opens="'inline'" :ranges="false" @update="emitDateInput()"/>
+    <date-range-picker v-if="selected_type == 1" v-model="date_range" 
+                      :autoApply="true" 
+                      :opens="'inline'" 
+                      :ranges="false" 
+                      @update="emitDateInput()"/>
     <div class="flex flex-col items-center" v-if="selected_type == 2">
       <span class="font-semibold text-xl mb-4 mt-2">Stay for a {{selected_flexible_opt}}</span>
       <div class="flex items-center gap-2">
