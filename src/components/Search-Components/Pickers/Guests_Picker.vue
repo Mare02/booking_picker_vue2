@@ -28,14 +28,12 @@ export default {
     
   },
   watch:{
-    
+    selectedOptArr(){
+      this.$emit('selectedGuests', this.selectedOptArr)
+    }
   },
   updated(){
-    console.log('updated');
-
-    console.log('----------------------------');
     for(let opt of this.options){
-      console.log(opt.name + ":", opt.count);
       let obj = {
         name: opt.name,
         count: opt.count

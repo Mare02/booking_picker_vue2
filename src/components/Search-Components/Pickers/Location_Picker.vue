@@ -1,7 +1,9 @@
 <template>
   <div>
     <div class="flex flex-col" v-if="queryLength > 0">
-      <div v-for="loc in locations_arr" :key="locations_arr.indexOf(loc)" class="flex items-center gap-4 hover:bg-gray-200/50 px-4 py-2 cursor-pointer min-w-[20rem]">
+      <div v-for="loc in locations_arr" :key="locations_arr.indexOf(loc)" class="flex items-center gap-4 hover:bg-gray-200/50 px-4 
+                                                                                  py-2 cursor-pointer min-w-[20rem]"
+                                                                            @click="selectLoc(loc.address.formattedAddress)">
         <div class="p-3 bg-gray-200 rounded-xl">
           <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><g data-name="Layer 2"><path d="M16,30a1,1,0,0,0,.62-.22C17,29.44,27,21.38,27,13A11,11,0,0,0,5,13c0,8.38,10,16.44,10.38,16.78A1,1,0,0,0,16,30ZM7,13a9,9,0,0,1,18,0c0,6.3-6.87,12.81-9,14.69C13.87,25.81,7,19.3,7,13Z"/><path d="M21,13a5,5,0,1,0-5,5A5,5,0,0,0,21,13Zm-8,0a3,3,0,1,1,3,3A3,3,0,0,1,13,13Z"/></g></svg>
         </div>
@@ -30,7 +32,7 @@ import axios from 'axios'
 
 export default {
   name:'location-picker',
-  props:['search_query'],
+  props:['search_query', 'clear_signal'],
   mounted(){
     
   },
@@ -50,6 +52,15 @@ export default {
       if (this.selected_region && this.selected_region !== ''){
         this.locations_arr = []
       }
+    },
+    selected_location(){
+      this.$emit('locationSelect', this.selected_location)
+    },
+    clear_signal(){
+      this.selected_region = null
+      this.locations_arr = []
+      this.selected_location = ''
+      console.log('clear signal');
     }
   },
   data(){
@@ -110,6 +121,9 @@ export default {
     selectRegion(region){
       this.selected_region = region
       this.$emit('regionSelect', region)
+    },
+    selectLoc(location){
+      this.selected_location = location
     }
   }
 }
