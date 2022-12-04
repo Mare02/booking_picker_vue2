@@ -12,7 +12,7 @@
           <p class="w-[0.12rem] h-6 bg-gray-300/80"></p>
         <span href="" class="py-[0.6rem] pl-3" @click="emitShowMain('guests_picker')">Add guests</span>
       </div>
-      <div class="flex items-center gap-4" >
+      <div class="flex items-center gap-4 max-sm:w-full" >
 
         <!--Ikonica se koristi za obe situacije-->
         <div class="p-2 sm:mx-2 sm:bg-rose-500 rounded-full">
@@ -20,7 +20,7 @@
         </div>
 
         <!--Deo koji se ubacuje u togler za dizajn na malom ekranu-->
-        <div class="flex flex-col sm:hidden py-1" @click="emitShowMain('location_picker')">
+        <div class="flex flex-col sm:hidden py-1 max-sm:w-full" @click="emitShowMain('location_picker')">
           <span class="font-semibold">Where to?</span>
           <div class="flex items-center gap-2 text-sm">
             <span href="">Anywhere</span>

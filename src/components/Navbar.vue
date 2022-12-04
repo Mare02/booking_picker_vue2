@@ -17,7 +17,7 @@
           </div>
           <span class="font-semibold text-lg hidden md:block">Brand Name</span>
         </div>
-        <transition name="fade-rev">
+        <transition :name="toggler_animation">
           <Search_Toggler v-if="!showMainComponent" @emitShowMain="showMain"/>
         </transition>
         <div class="items-center gap-2 hidden sm:flex">
@@ -27,8 +27,9 @@
           </div>
         </div>
       </div>
-      <transition name="fade">
-        <Search_Controller v-if="showMainComponent" :picker_name="selectedPickerName" @search="showMainComponent = false"/>
+      <transition :name="cont_animation">
+        <Search_Controller v-if="showMainComponent" :picker_name="selectedPickerName" @search="showMainComponent = false"
+                            @closeCont="showMainComponent = false"/>
       </transition>
     </div>
     <div class="w-full top-0 absolute h-screen bg-black/40 z-[-1]" v-if="showMainComponent" id="dim"></div>
@@ -49,9 +50,19 @@ export default{
 
   },
   mounted(){
+    if(x.matches){
+      this.cont_animation = 'fade_mobile'
+      this.toggler_animation = 'fade_mobile_rev'
+    }
     window.addEventListener('resize', () => {
       if(x.matches){
         this.showMainComponent = false
+        this.cont_animation = 'fade_mobile'
+        this.toggler_animation = 'fade_mobile_rev'
+      }
+      else{
+        this.cont_animation = 'fade'
+        this.toggler_animation = 'fade_rev'
       }
     })
     document.addEventListener('click', (e) => {
@@ -63,7 +74,9 @@ export default{
   data(){
     return{
       showMainComponent: false,
-      selectedPickerName: null
+      selectedPickerName: null,
+      cont_animation: 'fade',
+      toggler_animation: 'fade_rev'
     }
   },
   methods:{
@@ -89,17 +102,34 @@ export default{
   max-height: 0;
 }
 
-.fade-rev-enter-active, .fade-rev-leave-active {
+.fade_rev-enter-active, .fade_rev-leave-active {
   transition: all .2s ease;
   opacity: 1;
   max-height: 1200px;
   overflow: hidden;
 }
-.fade-rev-enter, .fade-rev-leave-to{
+.fade_rev-enter, .fade_rev-leave-to{
   opacity: 0;
   transition: all .2s ease;
   transform: translateY(3rem);
   scale: 1.5;
   max-height: 0;
 }
+
+.fade_mobile-enter-active, .fade_mobile-leave-active {
+  transition: all .4s ease;
+  transform: translateY(0rem);
+}
+.fade_mobile-enter, .fade_mobile-leave-to{
+  transition: all .5s;
+  transform: translateY(200rem);
+}
+
+.fade_mobile_rev-enter-active, .fade_mobile_rev-leave-active {
+
+}
+.fade_mobile_rev-enter, .fade_mobile_rev-leave-to{
+
+}
+
 </style>

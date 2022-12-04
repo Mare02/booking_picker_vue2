@@ -6,9 +6,6 @@
   visibility: hidden;
 }
 
-body:has(#controller){
-  overflow-y: hidden;
-}
 
 .disabled-btn{
   opacity: 0.5;
@@ -36,6 +33,9 @@ body:has(#controller){
 }
 
 @media (max-width: 720px){
+  body:has(#controller){
+    overflow-y: hidden;
+  }
   .vue-daterange-picker .calendars-container{
     display: flex;
     flex-direction: column;

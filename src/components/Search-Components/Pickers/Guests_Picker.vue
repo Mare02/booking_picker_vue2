@@ -1,5 +1,6 @@
 <template>
   <div class="flex flex-col gap-5">
+    <span class="sm:hidden font-semibold text-2xl">Who's coming?</span>
     <div v-for="opt in options" :key="opt.id" class="flex items-center justify-between min-w-[20rem] flex-wrap">
       <div class="flex flex-col">
         <span class="font-semibold">{{opt.name}}</span>
@@ -67,6 +68,7 @@ export default {
         {
           id: 4,
           name: "Pets",
+          desc: "Bringing a service animal?",
           count: 0
         },
       ]
