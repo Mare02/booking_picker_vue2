@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="flex flex-col bg-white shadow-lg sm:shadow-md">
-      <div class="px-2 py-3 sm:py-0 sm:pb-0 lg:px-24 flex items-center sm:justify-between justify-center">
+      <div class="max-sm:px-4 py-3 sm:py-0 sm:pb-0 lg:px-24 flex items-center sm:justify-between justify-center">
         <div class="items-center hidden sm:flex">
           <div class="w-20 h-20 flex items-center justify-center  mr-[-0.5rem]">
             <img class="md:w-full md:h-full w-4/5 h-4/5" src="../assets/home_logo.png" alt="">

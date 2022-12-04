@@ -3,7 +3,7 @@
 
 <template>
   <div class=" w-full flex flex-col items-center mt-28 sm:mt-44">
-    <div class="flex flex-wrap items-center w-full justify-center gap-7 p-2 sm:p-4">
+    <div class="flex flex-wrap items-center w-full justify-center gap-7 p-2 max-sm:px-4 sm:p-4">
       <div v-for="home in HomesData" :key="home.id" class="flex flex-col w-full sm:w-auto font-semibold 
                                                             shadow-lg rounded-2xl sm:shadow-none">
         <div class="relative w-full h-96 sm:h-64 sm:w-64 xl:h-72 xl:w-72 shadow rounded-2xl overflow-hidden transition-all">

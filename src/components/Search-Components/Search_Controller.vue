@@ -1,7 +1,7 @@
 <template>
   <div class="flex items-center justify-center sm:justify-evenly w-auto mb-4">
-    <div class="items-center flex flex-col max-sm:gap-3 sm:flex-row w-full sm:w-auto h-screen sm:h-auto absolute top-0 bg-gray-200 
-                sm:rounded-full shadow-lg cursor-pointer sm:relative max-sm:px-3 max-sm:pb-2" id="controller">
+    <div class="items-center flex flex-col max-sm:gap-3 sm:flex-row w-full sm:w-auto h-screen sm:h-auto absolute top-0 bg-gray-100
+               sm:bg-gray-200 sm:rounded-full shadow-lg cursor-pointer sm:relative max-sm:px-3 max-sm:pb-2" id="controller">
 
       <div class="py-4 w-full flex sm:hidden justify-center gap-8 text-lg font-semibold">
         <span class="underline">Stays</span>
@@ -121,8 +121,9 @@
                           @flexible_opt="getFlexibleOpt"/>  
           </keep-alive>
           <div class="flex sm:hidden items center w-full justify-between px-6 border-y-[0.12rem] py-3 border-gray-300">
-            <button class="font-semibold text-lg underline">Skip</button>
-            <button class="text-white bg-gray-800 rounded-lg px-6 py-2 font-semibold text-lg hover:bg-black transition-all"
+            <button class="font-semibold text-lg underline hover:bg-gray-100 rounded-lg transition-all px-4"
+                    @click="selected_picker = 'guests_picker'">Skip</button>
+            <button class="text-white bg-gray-800 rounded-lg px-4 py-2 font-semibold text-lg hover:bg-black transition-all"
                     @click="selected_picker = 'guests_picker'">Next</button>
           </div>  
          
@@ -225,7 +226,8 @@ export default {
     },
     getSelectedRegion(region){
       console.log(region);
-      this.location_query = region
+      // this.location_query = region
+      this.selected_picker = "date_picker"
       console.log(this.selected_picker);
     },
 
